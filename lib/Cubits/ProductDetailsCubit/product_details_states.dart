@@ -7,4 +7,6 @@ class GetProductDetailsLoadingState extends ProductDetailsStates{}
 class GetProductDetailsSuccessState extends ProductDetailsStates{}
 class GetProductDetailsErrorState extends ProductDetailsStates{}
 
+class ChangeCurrentImageState extends ProductDetailsStates{}
+
 

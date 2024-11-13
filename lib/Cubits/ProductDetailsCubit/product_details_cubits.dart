@@ -16,11 +16,19 @@ class ProductDetailsCubit extends Cubit<ProductDetailsStates> {
    DioHelper().fetchProductDetails(id).then((value) {
      productDetailsData = value ;
      emit(GetProductDetailsSuccessState());
-     print(value);
+     //print(value);
    }
    ).catchError((error){
      emit(GetProductDetailsErrorState());
      print(error);
    });
+ }
+
+
+ int currentImage = 0;
+ void changeCurrentImage(index)
+ {
+   currentImage = index;
+   emit(ChangeCurrentImageState());
  }
 }
