@@ -44,8 +44,8 @@ class ProductsPage extends StatelessWidget {
                                 shrinkWrap: true,
                                 physics: const NeverScrollableScrollPhysics(),
                                 crossAxisCount: 2,
-                                mainAxisSpacing: 10.0,
-                                crossAxisSpacing: 10.0,
+                                mainAxisSpacing: 0.0,
+                                crossAxisSpacing: 0.0,
                                 childAspectRatio: 1 / 1.4,
                                 children: List.generate(
                                   homeCubit.collectionProducts!.products.length,
@@ -55,7 +55,7 @@ class ProductsPage extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            if(homeCubit.collectionProducts!.metadata.totalPages != 0)
+                            if(homeCubit.collectionProducts!.metadata.totalPages > 2)
                               Padding(
                                 padding: const EdgeInsets.all(20.0),
                                 child: SizedBox(
@@ -77,23 +77,30 @@ class ProductsPage extends StatelessWidget {
                                         );
                                       }
                                       else{
-                                        return Container(
-                                          decoration: BoxDecoration(
-                                            color: defaultColor.shade300,
-                                            borderRadius: const BorderRadius.all( Radius.circular(15) ),
+                                        return InkWell(
+                                          onTap: ()
+                                          {
+                                            homeCubit.getCollectionProducts(id,index+1);
+                                          },
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: defaultColor.shade300,
+                                              borderRadius: const BorderRadius.all( Radius.circular(15) ),
+                                            ),
+                                            alignment: Alignment.center,
+                                            width: 40,
+                                            height: 30,
+                                            child: Text('${index+1}',style: const TextStyle(color: Colors.white),),
                                           ),
-                                          alignment: Alignment.center,
-                                          width: 40,
-                                          height: 30,
-                                          child: Text('${index+1}',style: const TextStyle(color: Colors.white),),
                                         );
                                       }
                                     },
                                     separatorBuilder: (context, index) => const SizedBox(width: 3,),
-                                    itemCount: homeCubit.collectionProducts!.metadata.totalPages,
+                                    itemCount: homeCubit.collectionProducts!.metadata.totalPages-1,
                                   ),
                                 ),
                               ),
+
                           ],
                         ),
                       );

@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:itqan/Cubits/HomeCubit/home_states.dart';
 import 'package:itqan/Models/category_products_model.dart';
-import 'package:itqan/Models/product_model.dart';
 import 'package:itqan/Pages/cart_page.dart';
 import 'package:itqan/Pages/category_page.dart';
 import 'package:itqan/Pages/home_page.dart';
@@ -108,7 +107,8 @@ class HomeCubit extends Cubit<HomeStates> {
 
 
   CategoryData? collectionProducts;
-  void getCollectionProducts(int id,{int currentPage = 1}) {
+  int currentPage = 1;
+  void getCollectionProducts(int id,currentPage) {
     collectionProducts = null;
     emit(GetProductLoadingState());
     DioHelper().fetchCategoryProducts(id,currentPage).then((value) {

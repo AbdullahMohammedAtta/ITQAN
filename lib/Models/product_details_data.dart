@@ -24,7 +24,7 @@ class ProductDetailsData {
   int id;
   List<ImageUrl> imagesUrls;
   String? nameAr;
-  String? nameEn;
+  String? name;
   int priceCents;
   String? sku;
   String? status;
@@ -37,7 +37,7 @@ class ProductDetailsData {
     required this.id,
     required this.imagesUrls,
     required this.nameAr,
-    required this.nameEn,
+    required this.name,
     required this.priceCents,
     required this.sku,
     required this.status,
@@ -54,7 +54,7 @@ class ProductDetailsData {
           .map((imageUrl) => ImageUrl.fromJson(imageUrl))
           .toList(),
       nameAr: json['nameAr'],
-      nameEn: json['nameEn'],
+      name: json['name'],
       priceCents: json['priceCents'],
       sku: json['sku'],
       status: json['status'],
@@ -69,7 +69,7 @@ class ProductDetailsData {
 
   @override
   String toString() {
-    return 'ProductDetailsData(id: $id, imagesUrls: $imagesUrls, nameAr: $nameAr, nameEn: $nameEn, priceCents: $priceCents, sku: $sku, status: $status, strippedDescription: $strippedDescription, thumbUrl: $thumbUrl, thumbUrls: $thumbUrls, variants: $variants)';
+    return 'ProductDetailsData(id: $id, imagesUrls: $imagesUrls, nameAr: $nameAr, name: $name, priceCents: $priceCents, sku: $sku, status: $status, strippedDescription: $strippedDescription, thumbUrl: $thumbUrl, thumbUrls: $thumbUrls, variants: $variants)';
   }
 }
 

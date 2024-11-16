@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:itqan/Cubits/HomeCubit/home_cubit.dart';
-import 'package:itqan/Pages/product_details_page.dart';
 import 'package:itqan/Pages/products_page.dart';
 import 'package:itqan/shared/Functions/functions.dart';
 import 'package:itqan/shared/Icon/icon_broken.dart';
@@ -18,7 +17,7 @@ class CategoryItemViewItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-        homeCubit.getCollectionProducts(id);
+        homeCubit.getCollectionProducts(id,0);
         navigateTo(context, ProductsPage(titleName: text, id: id));
       },
       child: Card(

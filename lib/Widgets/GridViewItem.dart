@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:itqan/Cubits/HomeCubit/home_cubit.dart';
-import 'package:itqan/Cubits/SeachCubit/search_cubit.dart';
 import 'package:itqan/Pages/product_details_page.dart';
 import 'package:itqan/shared/Conestants/Conestants.dart';
 import 'package:itqan/shared/Functions/functions.dart';
@@ -201,7 +200,7 @@ class CategoryProductsViewItem extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(3.0),
-                    child: homeCubit.collectionProducts!.products[index].product.variants.isNotEmpty ? Text('${homeCubit.collectionProducts!.products[index].product.variants[1].priceCents/100} EGP') : Text('${homeCubit.collectionProducts!.products[index].product.priceCents!/100} EGP'),
+                    child: homeCubit.collectionProducts!.products[index].product.variants.isNotEmpty ? Text('${homeCubit.collectionProducts!.products[index].product.variants[0].priceCents/100} EGP') : Text('${homeCubit.collectionProducts!.products[index].product.priceCents!/100} EGP'),
                   ),
                 ],
               )

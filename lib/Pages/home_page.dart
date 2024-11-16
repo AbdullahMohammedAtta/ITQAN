@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:itqan/Cubits/HomeCubit/home_cubit.dart';
 import 'package:itqan/Cubits/HomeCubit/home_states.dart';
+import 'package:itqan/Pages/products_page.dart';
 import 'package:itqan/Widgets/GridViewItem.dart';
 import 'package:itqan/Widgets/collection_item.dart';
 import 'package:itqan/Widgets/my_divider.dart';
 import 'package:itqan/shared/Conestants/Conestants.dart';
+import 'package:itqan/shared/Functions/functions.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 List<String> collectionImageLinkList = [
@@ -27,12 +29,12 @@ List<String> collectionTextList = [
   'SOCKS',
 ];
 List<int> collectionIdList = [
-  19511,
-  19512,
-  33333,//slipper !?
-  37672,
-  19513,
-  37673,
+  19511,//sneakers
+  19512,//shoes
+  42820,//slipper
+  37672,//bags
+  19513,//show care
+  37673,// socks
 ];
 
 class HomePage extends StatelessWidget {
@@ -183,7 +185,10 @@ class HomePage extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.only(right: 15.0,left: 15.0),
                       child: MaterialButton(
-                        onPressed: (){},
+                        onPressed: (){
+                          homeCubit.collectionProducts = homeCubit.categoryProductModelMale ;
+                          navigateTo(context, const ProductsPage(titleName: 'Male Products', id: 19515));
+                        },
                         color: Colors.orange,
                         child: const Text(
                           'View All',
@@ -217,13 +222,7 @@ class HomePage extends StatelessWidget {
                       children: List.generate(
                         10,
                             (index) {
-                              if(homeCubit.categoryProductModelFemale!.products[index].product.quantity == 0) {
-                                index = index + 1;
-                                return const SizedBox();
-                              }
-                              else {
                                 return FeMaleGridViewItem(homeCubit: homeCubit, index: index);
-                              }
                         },
                       ),
                     ),
@@ -233,7 +232,10 @@ class HomePage extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.only(right: 15.0,left: 15.0),
                       child: MaterialButton(
-                        onPressed: (){},
+                        onPressed: (){
+                          homeCubit.collectionProducts = homeCubit.categoryProductModelFemale ;
+                          navigateTo(context, const ProductsPage(titleName: 'Female Products', id: 19515));
+                        },
                         color: Colors.orange,
                         child: const Text(
                           'View All',

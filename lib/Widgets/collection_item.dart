@@ -15,7 +15,7 @@ class CollectionItem extends StatelessWidget {
     return InkWell(
       onTap: ()
       {
-        homeCubit.getCollectionProducts(id);
+        homeCubit.getCollectionProducts(id,0);
         navigateTo(context, ProductsPage(titleName: text,id : id,));
       },
       child: Card(

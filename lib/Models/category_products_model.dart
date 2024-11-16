@@ -64,39 +64,39 @@ class Products {
 class Product {
   Product({
     required this.id,
-    required this.description,
-    required this.discountedPriceCents,
-    required this.maxQuantity,
-    required this.minQuantity,
+    //required this.description,
+    //required this.discountedPriceCents,
+    //required this.maxQuantity,
+    //required this.minQuantity,
     required this.name,
     required this.priceCents,
-    required this.quantity,
-    required this.sku,
+    //required this.quantity,
+    //required this.sku,
     required this.thumbUrl,
     required this.variants,
   });
   late int id;
-  late String description;
-  late int? discountedPriceCents;
-  late int maxQuantity;
-  late int minQuantity;
+  //late String description;
+ //late int? discountedPriceCents;
+  //late int maxQuantity;
+  //late int minQuantity;
   late String name;
   late int? priceCents;
-  late int quantity;
-  late String? sku;
+  //late int quantity;
+  //late String? sku;
   late String? thumbUrl;
   late List<Variants> variants;
 
   Product.fromJson(Map<String, dynamic> json){
     id = json['id'];
-    description = json['description'];
-    discountedPriceCents = json['discountedPriceCents'];
-    maxQuantity = json['maxQuantity'];
-    minQuantity = json['minQuantity'];
+    // description = json['description'];
+    // discountedPriceCents = json['discountedPriceCents'];
+    // maxQuantity = json['maxQuantity'];
+    // minQuantity = json['minQuantity'];
     name = json['name'];
     priceCents = json['priceCents'];
-    quantity = json['quantity'];
-    sku = json['sku'];
+    // quantity = json['quantity'];
+    // sku = json['sku'];
     thumbUrl = json['thumbUrl'];
     variants = List.from(json['variants']).map((e)=>Variants.fromJson(e)).toList();
   }
@@ -104,14 +104,14 @@ class Product {
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
     data['id'] = id;
-    data['description'] = description;
-    data['discountedPriceCents'] = discountedPriceCents;
-    data['maxQuantity'] = maxQuantity;
-    data['minQuantity'] = minQuantity;
+    // data['description'] = description;
+    // data['discountedPriceCents'] = discountedPriceCents;
+    // data['maxQuantity'] = maxQuantity;
+    // data['minQuantity'] = minQuantity;
     data['name'] = name;
     data['priceCents'] = priceCents;
-    data['quantity'] = quantity;
-    data['sku'] = sku;
+    // data['quantity'] = quantity;
+    // data['sku'] = sku;
     data['thumbUrl'] = thumbUrl;
     data['variants'] = variants.map((e)=>e.toJson()).toList();
     return data;
@@ -119,10 +119,13 @@ class Product {
 
   @override
   String toString() {
-    return 'Product(id: $id,description: $description, '
-        'discountedPriceCents: $discountedPriceCents, maxQuantity: $maxQuantity, minQuantity: $minQuantity, '
-        ' name: $name, priceCents: $priceCents, quantity: $quantity, '
-        'sku: $sku, thumbUrl: $thumbUrl, variants: $variants)';
+    return 'Product(id: $id,'
+        //'description: $description, '
+        //'discountedPriceCents: $discountedPriceCents,'
+        //' maxQuantity: $maxQuantity, minQuantity: $minQuantity, '
+        ' name: $name, priceCents: $priceCents,'// quantity: $quantity, '
+        //'sku: $sku,'
+        ' thumbUrl: $thumbUrl, variants: $variants)';
   }
 
 }
