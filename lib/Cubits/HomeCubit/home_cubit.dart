@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:itqan/Cubits/HomeCubit/home_states.dart';
 import 'package:itqan/Models/category_products_model.dart';
+import 'package:itqan/Models/navigations_model.dart';
 import 'package:itqan/Pages/cart_page.dart';
 import 'package:itqan/Pages/category_page.dart';
 import 'package:itqan/Pages/home_page.dart';
+import 'package:itqan/Pages/products_page.dart';
 import 'package:itqan/Pages/search_page.dart';
 import 'package:itqan/Pages/setting_page.dart';
 import 'package:itqan/shared/DioHelper/Dio.dart';
@@ -121,5 +124,35 @@ class HomeCubit extends Cubit<HomeStates> {
     });
   }
 
+  NavigationsResponse? navigationsResponse;
+void getNavigations(){
+    emit(GetNavigationsLoadingState());
+    DioHelper().fetchNavigations().then((value){
+      emit(GetNavigationsSuccessState());
+      navigationsResponse = value;
+      //print(value);
+    }).catchError((error){
+      emit(GetNavigationsErrorState());
+      print(error);
+    });
+}
+
+  Widget buildNestedTile(Item item,context) {
+    if (item.items.isEmpty) {
+      return ListTile(
+        title: InkWell(
+          onTap: (){
+            getCollectionProducts(item.navigationableId, currentPage);
+            navigateTo(context, ProductsPage(titleName: item.label, id: item.navigationableId));
+          },
+            child: Text(item.label ?? 'No Label')),
+      );
+    }
+
+    return ExpansionTile(
+      title: Text(item.label ?? 'No Label'),
+      children: item.items.map((nestedItem) => buildNestedTile(nestedItem,context)).toList(),
+    );
+  }
 
 }

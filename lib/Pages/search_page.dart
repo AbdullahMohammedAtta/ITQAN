@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:itqan/Cubits/SeachCubit/search_cubit.dart';
 import 'package:itqan/Cubits/SeachCubit/searche_states.dart';
+import 'package:itqan/Pages/filter_page.dart';
 import 'package:itqan/Widgets/default_search_body.dart';
 import 'package:itqan/Widgets/my_divider.dart';
 import 'package:itqan/Widgets/search_list_item.dart';
 import 'package:itqan/shared/Conestants/Conestants.dart';
+import 'package:itqan/shared/Functions/functions.dart';
 import 'package:itqan/shared/Icon/icon_broken.dart';
 import 'package:itqan/shared/cache_helper/shared_preferences.dart';
 
@@ -18,7 +20,7 @@ class SearchPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (context) => SearchCubit(),
+        create: (context) => SearchCubit()..getCategories(),
       child: BlocConsumer<SearchCubit,SearchStates>(
           listener: (context, state) {},
           builder: (context, state) {
@@ -30,6 +32,7 @@ class SearchPage extends StatelessWidget {
                   SliverAppBar(
                     stretch: true,
                     centerTitle: true,
+                    leading: IconButton(onPressed: (){Navigator.pop(context);}, icon: const Icon(IconBroken.Arrow___Left_2)),
                     title:  Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -43,7 +46,15 @@ class SearchPage extends StatelessWidget {
                           Image.asset(height: 25, 'Assets/Images/ITQANPNGLIGHT.png', fit: BoxFit.fill),
                       ],
                     ),
-                    leading: IconButton(onPressed: (){Navigator.pop(context);}, icon: const Icon(IconBroken.Arrow___Left_2)),
+                    actions:[
+                      IconButton(onPressed: ()
+                      {
+                        navigateTo(context, const FilterPage());
+                      },
+                          icon: const Icon(IconBroken.Filter),
+                      ),
+                      const SizedBox(width: 10,),
+                    ],
                     bottom: PreferredSize(
                       preferredSize: const Size.fromHeight(65),
                       child:  Padding(
@@ -87,7 +98,7 @@ class SearchPage extends StatelessWidget {
                         builder: (context) {
                           return ConditionalBuilder(
                               condition: searchCubit.productModel != null,
-                              fallback: (context) => const DefaultSearchBody(),
+                              fallback: (context) => DefaultSearchBody(searchCubit: searchCubit,),
                               builder: (context) {
                                 return ConditionalBuilder(
                                   condition: searchCubit.productModel!.data.isNotEmpty,

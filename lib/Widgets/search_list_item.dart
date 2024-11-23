@@ -20,9 +20,9 @@ class SearchListItem extends StatelessWidget {
         child: Container(
           height: MediaQuery.of(context).size.height*0.18,
           width: MediaQuery.of(context).size.width,
-          decoration:  BoxDecoration(
-            color: Colors.orange.withOpacity(0.08),
-            borderRadius: const BorderRadius.all(Radius.circular(10)),
+          decoration:  const BoxDecoration(
+            //color: Colors.orange.withOpacity(0.08),
+            borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
           child: Row(
             children: [
@@ -30,7 +30,7 @@ class SearchListItem extends StatelessWidget {
                 height: MediaQuery.of(context).size.height*0.18,
                 width: MediaQuery.of(context).size.width*0.4,
                 decoration: BoxDecoration(
-                    color: Colors.orange[100],
+                    //color: Colors.orange[100],
                     borderRadius: const BorderRadius.all(Radius.circular(10),),
                     image: DecorationImage(fit: BoxFit.cover,image: NetworkImage(searchCubit.productModel!.data[index].thumbUrl,)),
                 ),

@@ -14,6 +14,10 @@ class GetProductLoadingState extends HomeStates{}
 class GetProductSuccessState extends HomeStates{}
 class GetProductErrorState extends HomeStates{}
 
+class GetNavigationsLoadingState extends HomeStates{}
+class GetNavigationsSuccessState extends HomeStates{}
+class GetNavigationsErrorState extends HomeStates{}
+
 
 
 

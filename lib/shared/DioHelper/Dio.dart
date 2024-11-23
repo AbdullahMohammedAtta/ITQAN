@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
+import 'package:itqan/Models/categories_model.dart';
 import 'package:itqan/Models/category_products_model.dart';
+import 'package:itqan/Models/navigations_model.dart';
 import 'package:itqan/Models/product_details_data.dart';
 import 'package:itqan/Models/product_model.dart';
 import 'package:itqan/shared/Conestants/Conestants.dart';
@@ -82,6 +84,40 @@ class DioHelper {
     }
   }
 
+  Future<ApiCategoriesResponse> fetchCategories() async {
+    var url = '$baseURL/collections';
+
+    var headers = {
+      'locale': 'en',
+      'domain': 'itqan.myzammit.shop',
+      'view': 'details',
+    };
+
+    try {
+      final response = await dio.get(
+        url,
+        options: Options(headers: headers),
+      );
+
+      // Print the whole response to understand the structure.
+      //print('API Response: ${response.data}');
+
+      // Verify if the response structure matches the expected structure.
+      if (response.statusCode == 200 && response.data != null) {
+        final data = response.data;
+        if (data != null) {
+          return ApiCategoriesResponse.fromJson(data);
+        } else {
+          throw Exception('Data key is missing or null');
+        }
+      } else {
+        throw Exception('Failed to load data');
+      }
+    } catch (e) {
+      //print('Error fetching male products: $e');
+      rethrow;
+    }
+  }
 
   Future<DetailsResponse> fetchProductDetails(int id,) async {
     var url = '$baseURL/products/$id';
@@ -116,5 +152,41 @@ class DioHelper {
       rethrow;
     }
   }
+
+  Future<NavigationsResponse> fetchNavigations() async {
+    var url = '$baseURL/navigations';
+
+    var headers = {
+      'locale': 'en',
+      'domain': 'itqan.myzammit.shop',
+      'view': 'details',
+    };
+
+    try {
+      final response = await dio.get(
+        url,
+        options: Options(headers: headers),
+      );
+
+      // Print the whole response to understand the structure.
+      //print('API Response: ${response.data}');
+
+      // Verify if the response structure matches the expected structure.
+      if (response.statusCode == 200 && response.data != null) {
+        final data = response.data;
+        if (data != null) {
+          return NavigationsResponse.fromJson(data);
+        } else {
+          throw Exception('Data key is missing or null');
+        }
+      } else {
+        throw Exception('Failed to load data');
+      }
+    } catch (e) {
+      //print('Error fetching male products: $e');
+      rethrow;
+    }
+  }
+
 
 }

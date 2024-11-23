@@ -1,8 +1,13 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:itqan/Cubits/HomeCubit/home_cubit.dart';
 import 'package:itqan/Cubits/HomeCubit/home_states.dart';
+import 'package:itqan/Models/navigations_model.dart';
 import 'package:itqan/Pages/favourite_page.dart';
+import 'package:itqan/Pages/login_page.dart';
+import 'package:itqan/Pages/products_page.dart';
+import 'package:itqan/Widgets/my_divider.dart';
 import 'package:itqan/shared/Functions/functions.dart';
 import 'package:itqan/shared/Icon/icon_broken.dart';
 import 'package:itqan/shared/cache_helper/shared_preferences.dart';
@@ -61,25 +66,77 @@ class LayOut extends StatelessWidget {
           ),
           drawer: Drawer(
             child: SafeArea(
-              child: Column(
-                children: [
-                  Stack(
-                    alignment: Alignment.topRight,
-                    children: [
-                      Image.asset('Assets/Images/LOGO.jpg'),
-                      IconButton(onPressed: (){Navigator.pop(context);}, icon: const Icon(IconBroken.Close_Square,size: 35,color: Colors.black,)),
-                    ],
-                  ),
-                  IconButton(
-                      icon: Icon(
-                          CacheHelper.getBoolean(key: 'isDark')?? true
-                              ? Icons.light_mode_outlined
-                              : Icons.dark_mode_outlined),
-                      onPressed:(){
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Stack(
+                      alignment: Alignment.topRight,
+                      children: [
+                        Image.asset('Assets/Images/LOGO.jpg'),
+                        IconButton(onPressed: (){Navigator.pop(context);}, icon: const Icon(IconBroken.Close_Square,size: 35,color: Colors.black,)),
+                      ],
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.all(12.0),
+                      child: Text('Welcome Abdullah 👋',style: TextStyle(fontSize: 15),),
+                    ),
+                    InkWell(
+                      onTap: (){
+                        homeCubit.getCollectionProducts(25231, 1);
+                        navigateTo(context, const ProductsPage(titleName: 'All Products', id: 25231));
+                      },
+                      child: const Padding(
+                        padding: EdgeInsets.all(15.0),
+                        child: Row(
+                          children: [
+                            Text('See All Products',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+                            Spacer(),
+                            Icon(IconBroken.Arrow___Right_2)
+                          ],
+                        ),
+                      ),
+                    ),
+                     ConditionalBuilder(
+                       condition: homeCubit.navigationsResponse != null,
+                       fallback: (context) => const CircularProgressIndicator(color: Colors.orange,),
+                       builder: (context) {
+                         return ListView.separated
+                           (
+                           physics: const NeverScrollableScrollPhysics(),
+                           shrinkWrap: true,
+                           itemBuilder: (context, index) {
+                             return ExpansionTile(
+                                 title: Text({(homeCubit.navigationsResponse!.data[index].label)}.toString()),
+                               children: homeCubit.navigationsResponse!.data[index].items.map((item) => homeCubit.buildNestedTile(item,context)).toList(),
+                             );
+                           },
+                             separatorBuilder: (context, index) => const SizedBox(height: 3,),
+                             itemCount: 2,
+                         );
+                       },
+                     ),
+                    const MyDivider(),
+                    InkWell(
+                      onTap: (){
                         homeCubit.changeThemeMode();
-                      }
-                  ) ,
-                ],
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Row(
+                          children: [
+                            const Text('Dark mode',style: TextStyle(fontSize: 16),),
+                            const Spacer(),
+                                  Icon(
+                                    CacheHelper.getBoolean(key: 'isDark')?? true
+                                        ? Icons.dark_mode_outlined
+                                        : Icons.light_mode_outlined),
+                          ],
+                        ),
+                      ),
+                    ),
+                    TextButton(onPressed: (){navigateTo(context, LoginPage());}, child: const Text('Login'),),
+                  ],
+                ),
               ),
             ),
           ),
